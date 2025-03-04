@@ -4,24 +4,36 @@ public class Movement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
-
+    
     private Rigidbody2D rb;
-    private float moveInput;
+    private float moveInputX;
+    private float moveInputY;
+    private StaminaSystem staminaSystem;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        staminaSystem = GetComponent<StaminaSystem>(); // Get StaminaSystem reference
     }
 
     void Update()
     {
-        // Get movement input
-        moveInput = Input.GetAxis("Horizontal");
+        // Prevent movement if stamina is depleted
+        if (staminaSystem != null && staminaSystem.IsOutOfStamina())
+        {
+            moveInputX = 0f;
+            moveInputY = 0f;
+        }
+        else
+        {
+            moveInputX = Input.GetAxis("Horizontal");
+            moveInputY = Input.GetAxis("Vertical");
+        }
     }
 
     void FixedUpdate()
     {
-        // Move the hermit crab
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        // Move the player if they have stamina
+        rb.velocity = new Vector2(moveInputX * moveSpeed, moveInputY * moveSpeed);
     }
 }

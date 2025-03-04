@@ -11,7 +11,11 @@ public class CameraFollow : MonoBehaviour
         // Find the player by tag if not assigned
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
         }
     }
 
