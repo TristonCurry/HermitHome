@@ -11,17 +11,14 @@ public class StaminaSystem : MonoBehaviour
     [Header("UI Elements")]
     public Image staminaBar; // UI image for stamina
 
-    private Movement movementScript;
-
     void Start()
     {
         currentStamina = maxStamina;
-        movementScript = GetComponent<Movement>(); // Get movement script
     }
 
     void Update()
     {
-        bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0; // Check if moving
+        bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0; // Now detects vertical movement too
 
         // Drain stamina when moving
         if (isMoving && currentStamina > 0)
@@ -41,6 +38,11 @@ public class StaminaSystem : MonoBehaviour
     {
         currentStamina += amount;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+    }
+
+    public bool IsOutOfStamina()
+    {
+        return currentStamina <= 0;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
