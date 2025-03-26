@@ -5,8 +5,8 @@ public class WaveSpawner : MonoBehaviour
     public GameObject wavePrefab;  // The SeaWave prefab to spawn
     public Transform cameraTransform;  // Assign this manually or it will auto-assign to the Main Camera
 
-    private float minSpawnTime = 5f;  // 3 minutes
-    private float maxSpawnTime = 10f;  // 5 minutes
+    private float minSpawnTime = 60f;  // 3 minutes
+    private float maxSpawnTime = 300f;  // 5 minutes
     private float spawnOffset = 10f;  // Distance from the camera's right edge
 
     void Start()
